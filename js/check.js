@@ -1,25 +1,22 @@
-function getMessage(variableA, variableB) {
-  if (typeof variableA === 'boolean') {
-    if (variableA === 'true') {
-      return 'Я попал в ' + variableB;
+function getMessage(a, b) {
+  if (typeof a == 'boolean') {
+    if (a) {
+      return 'Я попал в ' + b;
     } else {
       return 'Я никуда не попал';
     }
-    
-  } else if (typeof variableA === 'number') {
-    return 'Я прыгнул на ' + variableA * 100 + ' сантиметров';
-    
-  } else if (typeof variableA === 'object') {
+  } else if (typeof a == 'number') {
+    return 'Я прыгнул на ' + (a * 100) + ' сантиметров';
+  } else if (typeof a == 'object') {
     var sum = 0;
-    for (var i = 0; i < variableA.length; i++) {
-      sum += variableA[i];
+    for (var i = 0; i < a.length; i++) {
+      sum += a[i];
     }
     return 'Я прошёл ' + sum + ' шагов';
-    
-  } else if (typeof variableA === 'object' && typeof variableB ==='object') {
+  } else if (typeof b =='object' && typeof a == 'object') {
     var lengthOfPath = 0;
-    for (var i =0; i < variableA.length; i++) {
-      length += variableA[i] * variableB[i];
+    for (var i =0; i < a.length; i++) {
+      lengthOfPath += a[i] * b[i];
     }
     return 'Я прошёл ' + lengthOfPath + ' метров';
   }
