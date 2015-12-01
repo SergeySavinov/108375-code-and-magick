@@ -418,23 +418,19 @@
       switch (this.state.currentStatus) {
         case Verdict.WIN:
           currentMessage = 'textWin';
-          console.log('you have won!');
           break;
         case Verdict.FAIL:;
           currentMessage = 'textFail';
-          console.log('you have failed!');
           break;
         case Verdict.PAUSE:
           currentMessage = 'textPause';
-          console.log('game is on pause!');
           break;
         case Verdict.INTRO:
           currentMessage = 'textIntro';
-          console.log('welcome to the game! Press Space to start');
           break;    
       }
       for (var i = 0; i < messageList[currentMessage].length; i++) {
-              this.ctx.fillText(messageList[currentMessage][i], textCoordinateX, textCoordinateY + (25 * i));
+        this.ctx.fillText(messageList[currentMessage][i], textCoordinateX, textCoordinateY + (25 * i));
       }
     },
 
