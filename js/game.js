@@ -379,78 +379,62 @@
      */
     _drawPauseScreen: function() {
       // Задание координат и тектста сообщений
-        var blockCoordinateX = 100;
-        var blockCoordinateY = 100;
-        var textCoordinateX = 35 + blockCoordinateX;
-        var textCoordinateY = 30 + blockCoordinateY;
-        var shadowPosition = 10;
-        var textWin = ['Вы выиграли!'];
-        var textFail = ['Вы проиграли!'];
-        var textPause = ['Игра поставлена на паузу'];
-        var textIntro = ['Добро пожаловать в игру!', 'Нажмите пробел для начала'];
-        //Функция для отрисовки текстового блока
-        function textBlockDrawing() {
-          //Отрисовка тени от поля вывода текста
-          this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-          this.ctx.beginPath();
-          this.ctx.moveTo(50 + blockCoordinateX + shadowPosition, 0 + blockCoordinateY + shadowPosition);
-          this.ctx.lineTo(200 + blockCoordinateX + shadowPosition, 0 + blockCoordinateY + shadowPosition);
-          this.ctx.arc(250 + blockCoordinateX + shadowPosition, 50 + blockCoordinateY + shadowPosition, 50, -Math.PI*0.5, -Math.PI*1.5);
-          this.ctx.lineTo(50 + blockCoordinateX + shadowPosition, 100 + blockCoordinateY + shadowPosition);
-          this.ctx.arc(50 + blockCoordinateX + shadowPosition, 50 + blockCoordinateY + shadowPosition, 50, Math.PI*0.5, Math.PI*1.5);
-          this.ctx.closePath();
-          this.ctx.fill();
-          //Отрисоква поля вывода текста
-          this.ctx.fillStyle = '#FFFFFF';
-          this.ctx.beginPath();
-          this.ctx.moveTo(50 + blockCoordinateX, 0 + blockCoordinateY);
-          this.ctx.lineTo(200 + blockCoordinateX, 0 + blockCoordinateY);
-          this.ctx.arc(250 + blockCoordinateX, 50 + blockCoordinateY, 50, -Math.PI*0.5, -Math.PI*1.5);
-          this.ctx.lineTo(50 + blockCoordinateX, 100 + blockCoordinateY);
-          this.ctx.arc(50 + blockCoordinateX, 50 + blockCoordinateY, 50, Math.PI*0.5, Math.PI*1.5);
-          this.ctx.closePath();
-          this.ctx.fill();
-        };
+      var blockCoordinateX = 200;
+      var blockCoordinateY = 50;
+      var textCoordinateX = 35 + blockCoordinateX;
+      var textCoordinateY = 30 + blockCoordinateY;
+      var shadowPosition = 10;
+      var currentMessage = '';
+      var messageList = {
+        textWin: ['Вы выиграли!'],
+        textFail: ['Вы проиграли!'],
+        textPause: ['Игра поставлена на паузу'],
+        textIntro: ['Добро пожаловать в игру!', 'Нажмите пробел для начала']
+      };
+      //Отрисоква тени поля вывода текста
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      this.ctx.beginPath();
+      this.ctx.moveTo(50 + blockCoordinateX + shadowPosition, 0 + blockCoordinateY + shadowPosition);
+      this.ctx.lineTo(200 + blockCoordinateX + shadowPosition, 0 + blockCoordinateY + shadowPosition);
+      this.ctx.arc(250 + blockCoordinateX + shadowPosition, 50 + blockCoordinateY + shadowPosition, 50, -Math.PI*0.5, -Math.PI*1.5);
+      this.ctx.lineTo(50 + blockCoordinateX + shadowPosition, 100 + blockCoordinateY + shadowPosition);
+      this.ctx.arc(50 + blockCoordinateX + shadowPosition, 50 + blockCoordinateY + shadowPosition, 50, Math.PI*0.5, Math.PI*1.5);
+      this.ctx.closePath();
+      this.ctx.fill();
+      //Отрисоква поля вывода текста
+      this.ctx.fillStyle = '#FFFFFF';
+      this.ctx.beginPath();
+      this.ctx.moveTo(50 + blockCoordinateX, 0 + blockCoordinateY);
+      this.ctx.lineTo(200 + blockCoordinateX, 0 + blockCoordinateY);
+      this.ctx.arc(250 + blockCoordinateX, 50 + blockCoordinateY, 50, -Math.PI*0.5, -Math.PI*1.5);
+      this.ctx.lineTo(50 + blockCoordinateX, 100 + blockCoordinateY);
+      this.ctx.arc(50 + blockCoordinateX, 50 + blockCoordinateY, 50, Math.PI*0.5, Math.PI*1.5);
+      this.ctx.closePath();
+      this.ctx.fill();
+      //Стиль текста
+      this.ctx.font = '16px PT Mono';
+      this.ctx.fillStyle = 'black';
+      
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          textBlockDrawing();
-          //Стиль текста
-          this.ctx.font = '16px PT Mono';
-          this.ctx.fillStyle = 'black';
-          //Вывод текста;
-          for (var i = 0; i < textWin.length; i++) {
-              this.ctx.fillText(textWin[i], textCoordinateX, textCoordinateY + (25 * i))
-            };
+          currentMessage = 'textWin';
           console.log('you have won!');
           break;
-        case Verdict.FAIL:
-          textBlockDrawing();
-          this.ctx.font = '16px PT Mono';
-          this.ctx.fillStyle = 'black';
-          for (var i = 0; i < textFail.length; i++) {
-              this.ctx.fillText(textFail[i], textCoordinateX, textCoordinateY + (25 * i))
-            };
+        case Verdict.FAIL:;
+          currentMessage = 'textFail';
           console.log('you have failed!');
           break;
         case Verdict.PAUSE:
-          textBlockDrawing();
-          this.ctx.font = '16px PT Mono';
-          this.ctx.fillStyle = 'black';
-          for (var i = 0; i < textPause.length; i++) {
-              this.ctx.fillText(textFail[i], textCoordinateX, textCoordinateY + (25 * i))
-            };
+          currentMessage = 'textPause';
           console.log('game is on pause!');
           break;
         case Verdict.INTRO:
-          textBlockDrawing();
-          this.ctx.font = '16px PT Mono';
-          this.ctx.fillStyle = 'black';
-          for (var i = 0; i < textIntro.length; i++) {
-              this.ctx.fillText(textIntro[i], textCoordinateX, textCoordinateY + (25 * i))
-            };
+          currentMessage = 'textIntro';
           console.log('welcome to the game! Press Space to start');
-          break;
-          
+          break;    
+      }
+      for (var i = 0; i < messageList[currentMessage].length; i++) {
+              this.ctx.fillText(messageList[currentMessage][i], textCoordinateX, textCoordinateY + (25 * i));
       }
     },
 
