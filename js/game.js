@@ -378,19 +378,59 @@
      * Отрисовка экрана паузы.
      */
     _drawPauseScreen: function() {
+      // Задание координат и тектста сообщений
+      var blockCoordinateX = 200;
+      var blockCoordinateY = 50;
+      var textCoordinateX = 35 + blockCoordinateX;
+      var textCoordinateY = 30 + blockCoordinateY;
+      var shadowPosition = 10;
+      var currentMessage = '';
+      var messageList = {
+        textWin: ['Вы выиграли!'],
+        textFail: ['Вы проиграли!'],
+        textPause: ['Игра поставлена на паузу'],
+        textIntro: ['Добро пожаловать в игру!', 'Нажмите пробел для начала']
+      };
+      //Отрисоква тени поля вывода текста
+      this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+      this.ctx.beginPath();
+      this.ctx.moveTo(50 + blockCoordinateX + shadowPosition, 0 + blockCoordinateY + shadowPosition);
+      this.ctx.lineTo(200 + blockCoordinateX + shadowPosition, 0 + blockCoordinateY + shadowPosition);
+      this.ctx.arc(250 + blockCoordinateX + shadowPosition, 50 + blockCoordinateY + shadowPosition, 50, -Math.PI*0.5, -Math.PI*1.5);
+      this.ctx.lineTo(50 + blockCoordinateX + shadowPosition, 100 + blockCoordinateY + shadowPosition);
+      this.ctx.arc(50 + blockCoordinateX + shadowPosition, 50 + blockCoordinateY + shadowPosition, 50, Math.PI*0.5, Math.PI*1.5);
+      this.ctx.closePath();
+      this.ctx.fill();
+      //Отрисоква поля вывода текста
+      this.ctx.fillStyle = '#FFFFFF';
+      this.ctx.beginPath();
+      this.ctx.moveTo(50 + blockCoordinateX, 0 + blockCoordinateY);
+      this.ctx.lineTo(200 + blockCoordinateX, 0 + blockCoordinateY);
+      this.ctx.arc(250 + blockCoordinateX, 50 + blockCoordinateY, 50, -Math.PI*0.5, -Math.PI*1.5);
+      this.ctx.lineTo(50 + blockCoordinateX, 100 + blockCoordinateY);
+      this.ctx.arc(50 + blockCoordinateX, 50 + blockCoordinateY, 50, Math.PI*0.5, Math.PI*1.5);
+      this.ctx.closePath();
+      this.ctx.fill();
+      //Стиль текста
+      this.ctx.font = '16px PT Mono';
+      this.ctx.fillStyle = 'black';
+      
       switch (this.state.currentStatus) {
         case Verdict.WIN:
-          console.log('you have won!');
+          currentMessage = 'textWin';
           break;
-        case Verdict.FAIL:
-          console.log('you have failed!');
+        case Verdict.FAIL:;
+          currentMessage = 'textFail';
           break;
         case Verdict.PAUSE:
-          console.log('game is on pause!');
+          currentMessage = 'textPause';
           break;
         case Verdict.INTRO:
-          console.log('welcome to the game! Press Space to start');
-          break;
+          currentMessage = 'textIntro';
+          break;    
+      }
+      for (var i = 0; i < messageList[currentMessage].length; i++) {
+        this.ctx.fillText(messageList[currentMessage][i], textCoordinateX, textCoordinateY + (25 * i));
       }
     },
 
